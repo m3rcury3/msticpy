@@ -8,12 +8,6 @@ defaults:
   metadata:
     data_source:
   parameters:
-    start:
-      description: Query start time
-      type: string
-    end:
-      description: Query end time
-      type: string
     select_fields:
       description: Fields to select. Default is *
       type: string
@@ -26,4 +20,4 @@ sources:
     description: Netwitness generic query
     metadata:
     args:
-      query: select {select_fields} where time = '{start} - {end}' && {where_clause}
+      query: select {select_fields} where {where_clause}
