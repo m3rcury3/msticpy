@@ -62,14 +62,6 @@ class NetwitnessDriver(DriverBase):
         self._required_params = self._NETWITNESS_REQD_ARGS
 
         self.set_driver_property(
-            DriverProps.PUBLIC_ATTRS,
-            {
-                "client": self.service,
-                "saved_searches": self._saved_searches,
-                "fired_alerts": self._fired_alerts,
-            },
-        )
-        self.set_driver_property(
             DriverProps.FORMATTERS,
             {
                 Formatters.DATETIME: self._format_datetime,
