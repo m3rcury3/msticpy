@@ -485,6 +485,7 @@ class NetwitnessAPI():
             df3=df2[["group","type","value"]].drop_duplicates(subset=["group","type"]).pivot(index="group",columns=["type"])
             columns = [x[1] for x in list(df3.columns)]
             df3.columns = columns
+            df3["time"] = pd.to_datetime(df3["time"], unit="s")
             # final_list =[]   --> Moved above
             # if(len(_json_data) == 3):  --> Moved above
             #     raise Exception("Query Returned Empty Results")  --> Moved above
