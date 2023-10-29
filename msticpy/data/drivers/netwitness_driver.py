@@ -477,7 +477,11 @@ class NetwitnessAPI():
             if(len(_json_data) == 3):
                 raise Exception("Query Returned Empty Results")
             df = pd.DataFrame.from_dict(_json_data)
-            return df
+            final_list =[]
+            for x in _json_data:
+                final_list += x["results"]["fields"]
+            df2 = pd.json_normalize(final_list)
+            return df2
 
 
         elif (nw_query_type == "raw"):
