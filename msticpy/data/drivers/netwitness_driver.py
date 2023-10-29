@@ -491,7 +491,7 @@ class NetwitnessAPI():
             #df3=df2[["group","type","value"]].pivot(index="group",columns=["type"])
             columns = [x[1] for x in list(df3.columns)]
             df3.columns = columns
-            df3["time"] = pd.to_datetime(df3["time"], unit="s")
+            #df3["time"] = pd.to_datetime(df3["time"], unit="s")
 
             return df3
 
