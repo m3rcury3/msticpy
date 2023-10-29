@@ -8,16 +8,17 @@ defaults:
   metadata:
     data_source: 'nwdb'
   parameters:
-    ip_src:
-      description: Source IP Address
+    select_fields:
+      description: Fields to select. Enter * to select all metadata
       type: string
+    where_clause: The query filter (e.g. time= '2023-10-25 00:00:00' - '2023-10-25 01:00:00' && ip.src=192.168.1.1)
 sources:
   nwmetadata_query:
     description: Query Netwitness metadata
     metadata:
       data_families: [NWQueryTypes]
     args:
-      query: select * where time= '2023-10-25 00:00:00' - '2023-10-25 01:00:00' && ip.src= {ip_src}
+      query: select {select_fields} where {where_clause}
   nwrawdata_query:
     description: Query Netwitness raw data
     metadata:
