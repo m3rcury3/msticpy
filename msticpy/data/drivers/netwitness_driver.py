@@ -482,6 +482,7 @@ class NetwitnessAPI():
             for x in _json_data:
                 final_list += x["results"]["fields"]
             df2 = pd.json_normalize(final_list)
+            df3=df2[["group","type","value"]]
             # final_list =[]   --> Moved above
             # if(len(_json_data) == 3):  --> Moved above
             #     raise Exception("Query Returned Empty Results")  --> Moved above
@@ -498,7 +499,7 @@ class NetwitnessAPI():
             # df3["time"] = pd.to_datetime(df3["time"], unit="s")
 
             # return df3
-            return df2
+            return df3
 
 
         elif (nw_query_type == "raw"):
