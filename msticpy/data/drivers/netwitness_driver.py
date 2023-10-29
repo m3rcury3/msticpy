@@ -474,6 +474,8 @@ class NetwitnessAPI():
             payload = {'msg':'query','query': query_string}
             response = self.session.get(self.url+"/sdk",params=payload)
             _json_data = json.loads(response.content.decode("utf-8"))
+            if(len(_json_data) == 3):
+                raise Exception("Query Returned Empty Results")
             df = pd.DataFrame.from_dict(_json_data)
             return df
 
