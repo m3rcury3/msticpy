@@ -160,7 +160,7 @@ class NetwitnessDriver(DriverBase):
         return cs_dict
 
     def query(
-        self, query: str, query_source, **kwargs
+        self, query: str, query_source: Optional[QuerySource] = None, **kwargs
     ) -> Union[pd.DataFrame, Any]:
         """
         Execute netwitness query and retrieve results.
@@ -192,7 +192,7 @@ class NetwitnessDriver(DriverBase):
             or query response if an error.
 
         """
-        # del query_source
+        del query_source
         if not self._connected:
             raise self._create_not_connected_err("Netwitness")
         
@@ -202,7 +202,6 @@ class NetwitnessDriver(DriverBase):
         limit=None
         flags=None
         where=None
-        print("Query Source: " + str(query_source))
         print("Query Type: " + nw_query_type)
         print('Executing query: ' + query + "...")
         nwqueryoutput=self.nw_client.nwquery(nw_query_type,query,**kwargs)
