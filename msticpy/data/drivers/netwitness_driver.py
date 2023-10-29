@@ -482,6 +482,8 @@ class NetwitnessAPI():
                 final_list += x["results"]["fields"]
             df2 = pd.json_normalize(final_list)
             df3=df2[["group","type","value"]].drop_duplicates(subset=["group","type"])
+            columns = [x[1] for x in list(df3.columns)]
+            df3.columns = columns
             return df3
 
 
