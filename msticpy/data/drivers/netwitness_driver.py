@@ -140,13 +140,6 @@ class NetwitnessDriver(DriverBase):
         elif isinstance(verify_opt, bool):
             cs_dict["verify"] = verify_opt
 
-        # Different required parameters for the REST API authentication method
-        # between user/pass and authorization bearer token
-        if "nwuser" in cs_dict:
-            self._required_params = ["nwhost", "nwuser", "nwpassword"]
-        else:
-            self._required_params = ["nwhost", "netwitnessToken"]
-
         missing_args = set(self._required_params) - cs_dict.keys()
         if missing_args:
             raise MsticpyUserConfigError(
