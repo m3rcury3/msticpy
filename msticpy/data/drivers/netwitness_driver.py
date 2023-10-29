@@ -208,37 +208,6 @@ class NetwitnessDriver(DriverBase):
         """
         raise NotImplementedError(f"Not supported for {self.__class__.__name__}")
 
-    @property
-    def driver_queries(self) -> Iterable[Dict[str, Any]]:
-        """
-        Return dynamic queries available on connection to service.
-
-        Returns
-        -------
-        Iterable[Dict[str, Any]]
-            List of queries with properties: "name", "query", "container"
-            and (optionally) "description"
-
-        Raises
-        ------
-        MsticpyNotConnectedError
-            If called before driver is connected.
-
-        """
-        if not self.connected:
-            raise self._create_not_connected_err("Netwitness")
-        if hasattr(self.service, "saved_searches") and self.service.saved_searches:
-            return [
-                {
-                    "name": search.name.strip().replace(" ", "_"),
-                    "query": f"search {search['search']}",
-                    "query_paths": "SavedSearches",
-                    "description": "",
-                }
-                for search in self.service.saved_searches
-            ]
-        return []
-
     def _exec_async_search(self, query_job, page_size, timeout):
         """Execute an async search and return results."""
         # Initiate progress bar and start while loop, waiting for async query to complete
