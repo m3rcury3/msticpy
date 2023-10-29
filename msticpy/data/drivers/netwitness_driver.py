@@ -167,16 +167,6 @@ class NetwitnessDriver(DriverBase):
 
         Other Parameters
         ----------------
-        count : int, optional
-            Passed to Netwitness that indicates the maximum number
-            of entities to return. A value of 0 indicates no maximum,
-            by default, 0
-        page_size = int, optional
-            Pass to Netwitness results reader in terms of fetch speed,
-            which sets of result amount will be got at a time,
-            by default, 100
-        timeout : int, optional
-            Amount of time to wait for results, by default 60
 
         Returns
         -------
@@ -217,28 +207,6 @@ class NetwitnessDriver(DriverBase):
 
         """
         raise NotImplementedError(f"Not supported for {self.__class__.__name__}")
-
-    @property
-    def service_queries(self) -> Tuple[Dict[str, str], str]:
-        """
-        Return dynamic queries available on connection to service.
-
-        Returns
-        -------
-        Tuple[Dict[str, str], str]
-            Dictionary of query_name, query_text.
-            Name of container to add queries to.
-
-        """
-        if not self.connected:
-            raise self._create_not_connected_err("Netwitness")
-        if hasattr(self.service, "saved_searches") and self.service.saved_searches:
-            queries = {
-                search.name.strip().replace(" ", "_"): f"search {search['search']}"
-                for search in self.service.saved_searches
-            }
-            return queries, "SavedSearches"
-        return {}, "SavedSearches"
 
     @property
     def driver_queries(self) -> Iterable[Dict[str, Any]]:
