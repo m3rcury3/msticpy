@@ -102,7 +102,6 @@ class NetwitnessDriver(DriverBase):
             key: val for key, val in cs_dict.items() if key in NETWITNESS_CONNECT_ARGS
         }
         nwurl="http://" + arg_dict['nwhost'] + ":" + str(arg_dict['nwport'])
-        #nw_client=NetwitnessAPI(**arg_dict)
         print("Connecting to " + nwurl + " as " + arg_dict['nwuser'] + "...")
         self.nw_client.login(url=nwurl, username=arg_dict['nwuser'], password=arg_dict['nwpassword'])
         print("Got Response: " + str(self.nw_client.response.content))
