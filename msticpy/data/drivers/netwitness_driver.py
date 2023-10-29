@@ -485,10 +485,7 @@ class NetwitnessAPI():
             df3=df2[["group","type","value"]].drop_duplicates(subset=["group","type"]).pivot(index="group",columns=["type"])
             columns = [x[1] for x in list(df3.columns)]
             df3.columns = columns
-            df3["time"] = pd.to_datetime(df3["time"], unit="s")
             return df3
-
-
 
         elif (nw_query_type == "raw"):
             response = self.session.get(self.url+"/sdk/packets",params=query_string)
