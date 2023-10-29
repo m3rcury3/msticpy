@@ -1,0 +1,28 @@
+# prospector configuration file
+---
+output-format: grouped
+
+strictness: veryhigh
+doc-warnings: true
+test-warnings: true
+member-warnings: false
+
+ignore-paths:
+  - docs
+  - tests
+
+pyroma:
+  run: true
+
+pycodestyle:
+  full: true
+  disable: [
+      E501, # Line length handled by Black
+    ]
+
+pydocstyle:
+  convention: numpy
+
+pylint:
+  disable:
+    - relative-beyond-top-level # multiple false positives

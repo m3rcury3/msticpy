@@ -1,0 +1,32 @@
+metadata:
+  version: 1
+  description: Netwitness Queries
+  data_environments: [Netwitness]
+  data_families: [NWQueryTypes]
+  tags: []
+defaults:
+  metadata:
+    data_source: 'nwdb'
+  parameters:
+    ip_src:
+      description: Source IP Address
+      type: string
+sources:
+  nwmetadata_query:
+    description: Query Netwitness metadata
+    metadata:
+      data_families: [NWQueryTypes]
+    args:
+      query: select * where time= '2023-10-25 00:00:00' - '2023-10-25 01:00:00' && ip.src= {ip_src}
+  nwrawdata_query:
+    description: Query Netwitness raw data
+    metadata:
+      data_families: [NWQueryTypes]
+    args:
+      query: select * where query='.....'
+  nwmsearch_query:
+    description: Query for a pattern using msearch
+    metadata:
+      data_families: [NWQueryTypes]
+    args:
+      query: select * where query='.....'

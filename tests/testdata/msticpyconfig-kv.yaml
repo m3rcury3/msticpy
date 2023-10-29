@@ -1,0 +1,67 @@
+AzureSentinel:
+  Workspaces:
+    Default:
+      WorkspaceId: "52b1ab41-869e-4138-9e40-2a4457f09bf3"
+      TenantId: "72f988bf-86f1-41af-91ab-2d7cd011db49"
+    MyTestWS:
+      WorkspaceId: "a927809c-8142-43e1-96b3-4ad87cfe95a3"
+      TenantId: "69d28fd7-42a5-48bc-a619-af56397b9f28"
+KeyVault:
+  TenantId: 57e3d15e-594c-4ff2-a87b-e8f7f1b78dbb
+  SubscriptionId: 923f2cea-a10b-4652-9a61-88835a5b0187
+  ResourceGroup: MyResGroup
+  AzureRegion: East US
+  VaultName: "myvault"
+  UseKeyring: True
+  Authority: global
+QueryDefinitions:
+  Default:
+    - "queries"
+  Custom:
+    - "testdata"
+TIProviders:
+  OTX:
+    Args:
+      AuthKey:
+        KeyVault: myvault/OTX_AuthKey
+    Primary: True
+    Provider: "OTX" # Explicitly name provider to override
+  VirusTotal:
+    Args:
+      AuthKey:
+        KeyVault:
+    Primary: True
+    Provider: "VirusTotal"
+  XForce:
+    Args:
+      ApiID:
+        KeyVault: XForce.ApiID
+      AuthKey:
+        KeyVault: XForce_AuthKey
+    Primary: False
+    Provider: "XForce"
+  AzureSentinel:
+    Args:
+      WorkspaceID: "a927809c-8142-43e1-96b3-4ad87cfe95a3"
+      TenantID: "69d28fd7-42a5-48bc-a619-af56397b9f28"
+    Primary: True
+    Provider: "LocalData"
+  OpenPageRank:
+    Args:
+      AuthKey: "69d28fd7-42a5-48bc-a619-af56397b9f28"
+    Primary: True
+    Provider: "OPR"
+  TorExitNodes:
+    Primary: True
+    Provider: Tor
+OtherProviders:
+  GeoIPLite:
+    Args:
+      AuthKey:
+        EnvironmentVar: "MAXMIND_AUTH"
+      DBFolder: "~/.msticpy"
+    Provider: "GeoLiteLookup"
+  IPStack:
+    Args:
+      AuthKey: "987654321-222"
+    Provider: "IPStackLookup"
