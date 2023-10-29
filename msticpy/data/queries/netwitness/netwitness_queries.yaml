@@ -2,34 +2,26 @@ metadata:
   version: 1
   description: Netwitness Queries
   data_environments: [Netwitness]
-  data_families: [NWQueryTypes]
+  data_families: [GenericQueries]
   tags: []
 defaults:
   metadata:
-    data_source: 'nwdb'
+    data_source:
   parameters:
-    select_fields:
-      description: Fields to select. Enter * to select all metadata
+    nw_query_type:
+      description: Type of the query. meta, raw or msearch. Default is meta
       type: string
+      default: meta
+    select_fields:
+      description: Fields to select. Default is *
+      type: string
+      default: "*"
     where_clause:
       description: The query filter (e.g. time= '2023-10-25 00:00:00' - '2023-10-25 01:00:00' && ip.src=192.168.1.1)
       type: string
 sources:
-  nwmetadata_query:
-    description: Query Netwitness metadata
+  generic_query:
+    description: Netwitness generic query
     metadata:
-      data_families: [NWQueryTypes]
     args:
       query: select {select_fields} where {where_clause}
-  nwrawdata_query:
-    description: Query Netwitness raw data
-    metadata:
-      data_families: [NWQueryTypes]
-    args:
-      query: select * where query='.....'
-  nwmsearch_query:
-    description: Query for a pattern using msearch
-    metadata:
-      data_families: [NWQueryTypes]
-    args:
-      query: select * where query='.....'
