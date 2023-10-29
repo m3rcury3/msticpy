@@ -20,4 +20,5 @@ sources:
     description: Netwitness generic query
     metadata:
     args:
+      nw_query_type: meta
       query: select {select_fields} where {where_clause}
