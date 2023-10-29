@@ -203,7 +203,7 @@ class NetwitnessDriver(DriverBase):
         limit=None
         flags=None
         where=None
-        print("Query Type: "nw_query_type)
+        print("Query Type: " + nw_query_type)
         print('Executing query: ' + query + "...")
         nwqueryoutput=self.nw_client.nwquery(nw_query_type,query,**kwargs)
         return nwqueryoutput
