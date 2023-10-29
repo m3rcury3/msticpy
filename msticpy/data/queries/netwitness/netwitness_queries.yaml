@@ -8,10 +8,6 @@ defaults:
   metadata:
     data_source:
   parameters:
-    nw_query_type:
-      description: Type of the query. meta, raw or msearch. Default is meta
-      type: string
-      default: meta
     select_fields:
       description: Fields to select. Default is *
       type: string

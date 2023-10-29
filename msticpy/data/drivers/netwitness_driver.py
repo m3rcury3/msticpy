@@ -196,7 +196,7 @@ class NetwitnessDriver(DriverBase):
         if not self._connected:
             raise self._create_not_connected_err("Netwitness")
         
-        #nw_query_type="meta"
+        nw_query_type="meta"
         query_string = query
         sessions=None
         limit=None
