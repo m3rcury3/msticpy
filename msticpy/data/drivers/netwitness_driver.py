@@ -475,8 +475,6 @@ class NetwitnessAPI():
             payload = {'msg':'query','query': query_string}
             response = self.session.get(self.url+"/sdk",params=payload)
             _json_data = json.loads(response.content.decode("utf-8"))
-            #print(response.content)
-            #sys.exit()
             df = pd.DataFrame.from_dict(_json_data)
             final_list =[] 
             if(len(_json_data) == 3):
@@ -486,13 +484,10 @@ class NetwitnessAPI():
             len(final_list)
             df2 = pd.json_normalize(final_list)
             #Added the following as pivot was causing a valueerror due to duplicate values occurring when 'pivoting'
-            
             df3=df2[["group","type","value"]].drop_duplicates(subset=["group","type"]).pivot(index="group",columns=["type"])
-            #df3=df2[["group","type","value"]].pivot(index="group",columns=["type"])
             columns = [x[1] for x in list(df3.columns)]
             df3.columns = columns
             #df3["time"] = pd.to_datetime(df3["time"], unit="s")
-
             return df3
 
         elif (nw_query_type == "raw"):
