@@ -476,7 +476,7 @@ class NetwitnessAPI():
             _json_data = json.loads(response.content.decode("utf-8"))
             if(len(_json_data) == 3):
                raise Exception("Query Returned Empty Results")
-            pd.DataFrame(_json_data)
+            # pd.DataFrame(_json_data)
             df = pd.DataFrame.from_dict(_json_data)
             final_list =[]
             for x in _json_data:
@@ -502,7 +502,7 @@ class NetwitnessAPI():
             # df3["time"] = pd.to_datetime(df3["time"], unit="s")
 
             # return df3
-            return df3
+            return df
 
 
         elif (nw_query_type == "raw"):
