@@ -61,13 +61,6 @@ class NetwitnessDriver(DriverBase):
             logger.setLevel(logging.DEBUG)
         self._required_params = self._NETWITNESS_REQD_ARGS
 
-        self.set_driver_property(
-            DriverProps.FORMATTERS,
-            {
-                Formatters.DATETIME: self._format_datetime,
-                Formatters.LIST: self._format_list,
-            },
-        )
         self.nw_client=NetwitnessAPI(**kwargs)
     def connect(self, connection_str: Optional[str] = None, **kwargs):
         """
