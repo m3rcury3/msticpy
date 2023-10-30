@@ -201,9 +201,9 @@ DataProviders:
       ClientSecret: *cred_key_opt
   Netwitness:
     Args:
-      nwhost: str()
-      nwport: str()
-      nwuser: str()
+      nwhost: str() # IP Address of the Netwitness node to query (e.g. Broker or Concentrator service)
+      nwport: str() # The REST API Port number (e.g. 50103 for a Broker service)
+      nwuser: str() # The username to connect with
 msticpy:
   FriendlyExceptions: bool(default=True, required=False)
   QueryDefinitions: list(required=False)
