@@ -3,6 +3,7 @@
 # Licensed under the MIT License. See License.txt in the project root for
 # license information.
 # --------------------------------------------------------------------------
+"""datq query test class."""
 import io
 from unittest.mock import MagicMock, patch
 
@@ -17,31 +18,41 @@ from msticpy.common.exceptions import (
     MsticpyUserConfigError,
 )
 
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 
 from ...unit_test_lib import get_test_data_path
 
-_TEST_DATA = get_test_data_path()
-
-NETWITNESS_CONNECT_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
+NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".nw_client"
 
 def cli_connect(**kwargs):
-    """Return None if magic isn't == kql."""
     cause = MagicMock()
     cause.body = bytes("Test body stuff", encoding="utf-8")
     cause.status = 404
     cause.reason = "Page not found."
     cause.headers = "One Two Three"
     if kwargs.get("host") == "AuthError":
-        raise sp_client.AuthenticationError(cause=cause, message="test AuthHeader")
+        raise nw_client.AuthenticationError(cause=cause, message="test AuthHeader")
     if kwargs.get("host") == "HTTPError":
         cause.body = io.BytesIO(cause.body)
-        raise sp_client.HTTPError(response=cause, _message="test HTTPError")
+        raise nw_client.HTTPError(response=cause, _message="test HTTPError")
     return _MockNetwitnessService()
 
-class _MockSplunkService(MagicMock):
-    """Splunk service mock."""
+class _MockNetwitnessCall:
+    def create(query, **kwargs):
+        del kwargs
+        return _MockAsyncResponse(query)
 
+class _MockAsyncResponse:
+    stats = {
+        "isDone": "0",
+        "doneProgress": 0.0,
+        "scanCount": 1,
+        "eventCount": 100,
+        "resultCount": 100,
+    }
+
+class _MockNetwitnessService(MagicMock):
+    """Netwitness service mock."""
     def __init__(self):
         """Mock method."""
         super().__init__()
@@ -50,45 +61,17 @@ class _MockSplunkService(MagicMock):
             _MockSplunkSearch("query2", "get stuff from somewhere"),
         ]
         self.jobs = MagicMock()
-        self.jobs = _MockSplunkCall
+        self.jobs = _MockNetwitnessCall
 
-    @property
-    def saved_searches(self):
-        """Mock method."""
-        return self.searches
-
-    @property
-    def fired_alerts(self):
-        """Mock method."""
-        return [
-            _MockAlert("alert1", 10),
-            _MockAlert("alert2", 10),
-            _MockAlert("alert3", 10),
-            _MockAlert("alert4", 10),
-        ]
-
-    @staticmethod
-    def _query_response(query, **kwargs):
-        del kwargs
-        return query
-
-@patch(NETWITNESS_CONNECT_PATCH)
-def test_netwitness_connect_no_params(NetwitnessAPI):
+@patch(NETWITNESS_CLI_PATCH)
+def test_netwitness_connect_no_params(netwitness_client):
     """Check failure with no args."""
     netwitness_client.connect = cli_connect
 
-# @patch(NETWITNESS_CONNECT_PATCH)
-# def test_netwitness_connect_req_params(NetwitnessAPI):
-#     """Check load/connect success with required params."""
+    nw_driver = NetwitnessDriver()
+    check.is_true(nw_driver.loaded)
 
-# @patch(NETWITNESS_CONNECT_PATCH)
-# def test_netwitness_connect_errors(NetwitnessAPI):
-#     """Check connect failure errors."""
-
-# @patch(NETWITNESS_CONNECT_PATCH)
-# def test_netwitness_fired_alerts(NetwitnessAPI):
-#     """Check fired alerts."""
-
-# @patch(NETWITNESS_CONNECT_PATCH)
-# def test_netwitness_saved_searches(NetwitnessAPI):
-#     """Check saved searches."""
+    with pytest.raises(MsticpyUserConfigError) as mp_ex:
+        nw_driver.connect()
+        check.is_false(nw_driver.connected)
+    check.is_in("no Netwitness connection parameters", mp_ex.value.args)
