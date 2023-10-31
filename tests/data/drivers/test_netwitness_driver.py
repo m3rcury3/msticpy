@@ -30,6 +30,7 @@ def cli_connect(**kwargs):
     cause.status = 200
     cause.reason = "Page not found."
     cause.headers = "One Two Three"
+    cause.response = "<Response [200]>"
     if kwargs.get("host") == "AuthError":
         raise NetwitnessAPI.AuthenticationError(cause=cause, message="test AuthHeader")
     if kwargs.get("host") == "HTTPError":
