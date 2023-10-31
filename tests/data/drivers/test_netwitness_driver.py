@@ -27,6 +27,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 def cli_connect(**kwargs):
     cause = MagicMock()
     cause.response.status_code
+    cause.connected="true"
     return _MockNetwitnessService()
 
 class _MockNetwitnessCall:
