@@ -73,14 +73,14 @@ def test_netwitness_connect_no_params(netwitness_client):
 @patch(NETWITNESS_CLI_PATCH)
 def test_netwitness_connect_req_params(netwitness_client):
     """Check load/connect success with required params."""
-    netwitness_client.connect = cli_connect
+    netwitness_client.response.status_code = 200
 
     nw_driver = NetwitnessDriver()
     check.is_true(nw_driver.loaded)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
     nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
-    check.is_false(nw_driver.connected)
+    check.is_true(nw_driver.connected)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
     nw_conn_str = (
