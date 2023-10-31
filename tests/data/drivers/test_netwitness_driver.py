@@ -60,13 +60,13 @@ _FAKE_STRING = "555555"
 @patch(NETWITNESS_CLI_PATCH)
 def test_netwitness_connect_no_params(netwitness_client):
     """Check failure with no args."""
-    netwitness_client.login = cli_connect
+    netwitness_client.connect = cli_connect
 
     nw_driver = NetwitnessDriver()
     check.is_true(nw_driver.loaded)
 
     with pytest.raises(MsticpyUserConfigError) as mp_ex:
-        nw_driver.login()
+        nw_driver.connect()
         check.is_false(nw_driver.connected)
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
@@ -79,7 +79,7 @@ def test_netwitness_connect_req_params(netwitness_client):
     check.is_true(nw_driver.loaded)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
-    nw_driver.login(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
+    nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
     check.is_true(nw_driver.connected)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
@@ -88,4 +88,4 @@ def test_netwitness_connect_req_params(netwitness_client):
     )
     nw_driver = NetwitnessDriver()
 
-    nw_driver.login(connection_str=nw_conn_str)
+    nw_driver.connect(connection_str=nw_conn_str)
