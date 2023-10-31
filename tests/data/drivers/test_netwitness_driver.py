@@ -84,7 +84,7 @@ def test_netwitness_connect_req_params(netwitness_client):
     netwitness_client.connect = cli_connect
 
     nw_driver = NetwitnessDriver()
-    check.is_true(sp_driver.loaded)
+    check.is_true(nw_driver.loaded)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
     nw_driver.connect(nwhost="netwitnesshost", username="testuser", password=_FAKE_STRING)  # nosec
