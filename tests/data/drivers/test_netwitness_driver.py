@@ -22,7 +22,7 @@ from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessA
 
 from ...unit_test_lib import get_test_data_path
 
-NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
+NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__
 
 def cli_connect(**kwargs):
     cause = MagicMock()
@@ -41,7 +41,6 @@ class _MockAsyncResponse:
         "scanCount": 1,
         "eventCount": 100,
         "resultCount": 100,
-        "response.status_code": 200,
     }
 
 class _MockNetwitnessService(MagicMock):
