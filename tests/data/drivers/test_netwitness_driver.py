@@ -27,7 +27,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 def cli_connect(**kwargs):
     cause = MagicMock()
     cause.body = bytes("Test body stuff", encoding="utf-8")
-    cause.status = 404
+    cause.status = 200
     cause.reason = "Page not found."
     cause.headers = "One Two Three"
     if kwargs.get("host") == "AuthError":
