@@ -27,7 +27,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 def cli_connect(**kwargs):
     cause = MagicMock()
     # cause.body = bytes("<Response [200]>", encoding="utf-8")
-    # cause.status = 200
+    cause.status = 200
     # cause.reason = "Page not found."
     # cause.headers = "One Two Three"
     cause.response.status_code = 200
@@ -88,7 +88,7 @@ def test_netwitness_connect_req_params(netwitness_client):
     check.is_true(nw_driver.loaded)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
-    nw_driver.connect(nwhost="netwitnesshost", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
+    nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
     check.is_true(nw_driver.connected)
 
     # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
