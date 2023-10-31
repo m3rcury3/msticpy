@@ -31,10 +31,10 @@ def cli_connect(**kwargs):
     cause.reason = "Page not found."
     cause.headers = "One Two Three"
     if kwargs.get("host") == "AuthError":
-        raise nw_client.AuthenticationError(cause=cause, message="test AuthHeader")
+        raise host.AuthenticationError(cause=cause, message="test AuthHeader")
     if kwargs.get("host") == "HTTPError":
         cause.body = io.BytesIO(cause.body)
-        raise nw_client.HTTPError(response=cause, _message="test HTTPError")
+        raise host.HTTPError(response=cause, _message="test HTTPError")
     return _MockNetwitnessService()
 
 class _MockNetwitnessCall:
