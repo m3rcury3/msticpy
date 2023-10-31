@@ -18,11 +18,11 @@ from msticpy.common.exceptions import (
     MsticpyUserConfigError,
 )
 
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI
 
 from ...unit_test_lib import get_test_data_path
 
-NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__
+NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
 def cli_connect(**kwargs):
     cause = MagicMock()
@@ -31,10 +31,10 @@ def cli_connect(**kwargs):
     cause.reason = "Page not found."
     cause.headers = "One Two Three"
     if kwargs.get("host") == "AuthError":
-        raise nw_client.AuthenticationError(cause=cause, message="test AuthHeader")
+        raise NetwitnessAPI.AuthenticationError(cause=cause, message="test AuthHeader")
     if kwargs.get("host") == "HTTPError":
         cause.body = io.BytesIO(cause.body)
-        raise nw_client.HTTPError(response=cause, _message="test HTTPError")
+        raise NetwitnessAPI.HTTPError(response=cause, _message="test HTTPError")
     return _MockNetwitnessService()
 
 class _MockNetwitnessCall:
