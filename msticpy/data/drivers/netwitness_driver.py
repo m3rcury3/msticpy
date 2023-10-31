@@ -56,7 +56,7 @@ class NetwitnessDriver(DriverBase):
         super().__init__(**kwargs)
         self.service = None
         self._loaded = True
-        self._connected = True
+        self._connected = False
         if kwargs.get("debug", False):
             logger.setLevel(logging.DEBUG)
         self._required_params = self._NETWITNESS_REQD_ARGS
