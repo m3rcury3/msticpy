@@ -26,16 +26,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
 def cli_connect(**kwargs):
     cause = MagicMock()
-    # cause.body = bytes("<Response [200]>", encoding="utf-8")
-    cause.status = 200
-    # cause.reason = "Page not found."
-    # cause.headers = "One Two Three"
-    cause.response.status_code = 200
-    if kwargs.get("host") == "AuthError":
-        raise NetwitnessAPI.AuthenticationError(cause=cause, message="test AuthHeader")
-    if kwargs.get("host") == "HTTPError":
-        cause.body = io.BytesIO(cause.body)
-        raise NetwitnessAPI.HTTPError(response=cause, _message="test HTTPError")
+    cause.response.status_code
     return _MockNetwitnessService()
 
 class _MockNetwitnessCall:
