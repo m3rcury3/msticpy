@@ -89,9 +89,9 @@ class NetwitnessDriver(DriverBase):
         nwurl="http://" + arg_dict['nwhost'] + ":" + str(arg_dict['nwport'])
         print("Connecting to " + nwurl + " as " + arg_dict['nwuser'] + "...")
         self.nw_client.login(url=nwurl, username=arg_dict['nwuser'], password=arg_dict['nwpassword'])
-        print("self.nw_client.response.status_code = " + self.nw_client.response.status_code)
-        print("self.nw_client.response.headers = " + self.nw_client.response.headers)
-        print("self.nw_client.response.reason = " + self.nw_client.response.reason)
+        print("self.nw_client.response.status_code = " + str(self.nw_client.response.status_code))
+        print("self.nw_client.response.headers = " + str(self.nw_client.response.headers))
+        print("self.nw_client.response.reason = " + str(self.nw_client.response.reason))
         print("Got Response: " + str(self.nw_client.response.content))
         if str(self.nw_client.response) != "<Response [200]>":
             print("Connection failed.")
