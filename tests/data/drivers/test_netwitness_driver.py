@@ -41,6 +41,7 @@ class _MockAsyncResponse:
         "scanCount": 1,
         "eventCount": 100,
         "resultCount": 100,
+        "response.status_code": 200,
     }
 
 class _MockNetwitnessService(MagicMock):
