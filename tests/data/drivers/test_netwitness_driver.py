@@ -22,7 +22,7 @@ from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 
 from ...unit_test_lib import get_test_data_path
 
-NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".nw_client"
+NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__
 
 def cli_connect(**kwargs):
     cause = MagicMock()
