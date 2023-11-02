@@ -38,7 +38,7 @@ def test_netwitness_connect_no_params(netwitness_client):
         check.is_false(nw_driver.connected)
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-@patch(NetwitnessDriver.connect)
+@patch(NetwitnessDriver.__module__)
 def test_netwitness_connect_req_params(netwitness_client):
     """Check load/connect success with required params."""
     netwitness_client.connect = cli_connect
@@ -46,5 +46,7 @@ def test_netwitness_connect_req_params(netwitness_client):
     nw_driver = NetwitnessDriver()
     check.is_true(nw_driver.loaded)
 
-    nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
-    check.is_true(nw_driver.connected)
+    with pytest.raises(MsticpyUserConfigError) as mp_ex:
+        nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
+        check.is_true(nw_driver.connected)
+    check.is_in("missing Netwitness required parameters", mp_ex.value.args)
