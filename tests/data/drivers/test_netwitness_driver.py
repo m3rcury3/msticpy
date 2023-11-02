@@ -17,10 +17,7 @@ from msticpy.common.exceptions import (
     MsticpyNotConnectedError,
     MsticpyUserConfigError,
 )
-
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI
-
-from ...unit_test_lib import get_test_data_path
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 
 NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
@@ -73,7 +70,7 @@ def test_netwitness_connect_no_params(netwitness_client):
 @patch(NETWITNESS_CLI_PATCH)
 def test_netwitness_connect_req_params(netwitness_client):
     """Check load/connect success with required params."""
-    #netwitness_client.connect = cli_connect
+    netwitness_client.connect = cli_connect
 
     nw_driver = NetwitnessDriver()
     check.is_true(nw_driver.loaded)
