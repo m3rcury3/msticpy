@@ -19,6 +19,8 @@ from msticpy.common.exceptions import (
 )
 from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 
+_FAKE_STRING="123456789"
+
 def cli_connect(**kwargs):
     mock=MagicMock()
     mock.status="200"
@@ -44,14 +46,6 @@ def test_netwitness_connect_req_params(netwitness_client):
     nw_driver = NetwitnessDriver()
     check.is_true(nw_driver.loaded)
 
-    # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
-    # nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
-    # check.is_true(nw_driver.connected)
-
-    # [SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Test code")]
-    # nw_conn_str = (
-    #     f"nwhost='netwitnesshost'; nwuser='testuser'; nwpassword='{_FAKE_STRING}'"  # nosec
-    # )
-    # nw_driver = NetwitnessDriver()
-
-    # nw_driver.connect(connection_str=nw_conn_str)
+    nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwuser="testuser", nwpassword=_FAKE_STRING)  # nosec
+    check.is_true(nw_driver.connected)
+    
