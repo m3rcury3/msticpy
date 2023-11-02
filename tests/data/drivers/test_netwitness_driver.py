@@ -38,7 +38,7 @@ def test_netwitness_connect_no_params(netwitness_client):
         check.is_false(nw_driver.connected)
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-@patch(NetwitnessDiver.__module__)
+@patch(NetwitnessDriver.connect)
 def test_netwitness_connect_req_params(netwitness_client):
     """Check load/connect success with required params."""
     netwitness_client.connect = cli_connect
