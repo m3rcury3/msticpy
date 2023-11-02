@@ -19,7 +19,7 @@ from msticpy.common.exceptions import (
 )
 from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 
-NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__
+NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
 def cli_connect(**kwargs):
     cause = MagicMock()
