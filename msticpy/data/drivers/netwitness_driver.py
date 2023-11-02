@@ -62,7 +62,7 @@ class NetwitnessDriver(DriverBase):
         self._required_params = self._NETWITNESS_REQD_ARGS
 
         self.nw_client=NetwitnessAPI(**kwargs)
-    def connectl(self, connection_str: Optional[str] = None, **kwargs):
+    def connect(self, connection_str: Optional[str] = None, **kwargs):
         """
         Connect to Netwitness REST API.
 
