@@ -26,32 +26,6 @@ def cli_connect(**kwargs):
     cause.response.status_code = 200
     return _MockNetwitnessService()
 
-class _MockNetwitnessCall:
-    def create(query, **kwargs):
-        del kwargs
-        return _MockAsyncResponse(query)
-
-class _MockAsyncResponse:
-    stats = {
-        "isDone": "0",
-        "doneProgress": 0.0,
-        "scanCount": 1,
-        "eventCount": 100,
-        "resultCount": 100,
-    }
-
-class _MockNetwitnessService(MagicMock):
-    """Netwitness service mock."""
-    def __init__(self):
-        """Mock method."""
-        super().__init__()
-        self.searches = [
-            _MockSplunkSearch("query1", "get stuff from somewhere"),
-            _MockSplunkSearch("query2", "get stuff from somewhere"),
-        ]
-        self.jobs = MagicMock()
-        self.jobs = _MockNetwitnessCall
-
 _FAKE_STRING = "555555"
 
 @patch(NETWITNESS_CLI_PATCH)
