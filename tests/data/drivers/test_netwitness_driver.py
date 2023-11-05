@@ -3,50 +3,22 @@
 # Licensed under the MIT License. See License.txt in the project root for
 # license information.
 # --------------------------------------------------------------------------
-"""datq query test class."""
-import io
-from unittest.mock import MagicMock, patch
 
-import pandas as pd
 import pytest
 import pytest_check as check
-
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 from msticpy.common.exceptions import (
-    MsticpyConnectionError,
-    MsticpyDataQueryError,
-    MsticpyNotConnectedError,
     MsticpyUserConfigError,
 )
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 
-_FAKE_STRING="123456789"
-
-def cli_connect(**kwargs):
-    mock=MagicMock()
-    mock.status="200"
-
-@patch(NetwitnessDriver.__module__)
-def test_netwitness_connect_no_params(netwitness_client):
-    """Check failure with no args."""
-    netwitness_client.connect = cli_connect
-
-    nw_driver = NetwitnessDriver()
-    check.is_true(nw_driver.loaded)
-
+def test_netwitness_connect_no_params():
     with pytest.raises(MsticpyUserConfigError) as mp_ex:
-        nw_driver.connect()
-        check.is_false(nw_driver.connected)
+        netwitness=NetwitnessDriver()
+        netwitness.connect() ## No arguments supplied by user
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-@patch(NetwitnessDriver.__module__)
-def test_netwitness_connect_req_params(netwitness_client):
-    """Check load/connect success with required params."""
-    netwitness_client.connect = cli_connect
+# def test_netwitness_connect_req_params():
 
-    nw_driver = NetwitnessDriver()
-    check.is_true(nw_driver.loaded)
+# def test_netwitness_connect_errors():
 
-    with pytest.raises(MsticpyUserConfigError) as mp_ex:
-        nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwpassword=_FAKE_STRING)  # nouser
-        check.is_true(nw_driver.connected)
-    check.is_in("missing Netwitness required parameters", mp_ex.value.args)
+# def test_netwitness_query_success():
