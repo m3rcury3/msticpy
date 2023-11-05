@@ -9,16 +9,21 @@ import pytest_check as check
 from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
 from msticpy.common.exceptions import (
     MsticpyUserConfigError,
+    MsticpyConnectionError,
 )
 
 def test_netwitness_connect_no_params():
     with pytest.raises(MsticpyUserConfigError) as mp_ex:
         netwitness=NetwitnessDriver()
-        netwitness.connect(nwhost="xyz",nwuser="user",nwpassword="pass") ## No arguments supplied by user
+        netwitness.connect() ## No arguments supplied by user
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-# def test_netwitness_connect_req_params():
+def test_netwitness_connect_errors():
+    with pytest.raises(MsticpyConnectionError) as mp_ex:
+        netwitness=NetwitnessDriver()
+        netwitness.connect(nwhost="nwhostname",nwuser="nwusername",nwpassword="nwpass")
+    check.is_in("requests.exceptions.ConnectionError", mp_ex.valye.args)
 
-# def test_netwitness_connect_errors():
+# def test_netwitness_connect_success():
 
 # def test_netwitness_query_success():
