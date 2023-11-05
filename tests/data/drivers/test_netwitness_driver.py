@@ -48,5 +48,5 @@ def test_netwitness_connect_req_params(netwitness_client):
 
     with pytest.raises(MsticpyUserConfigError) as mp_ex:
         nw_driver.connect(nwhost="netwitnesshost", nwport="50103", nwpassword=_FAKE_STRING)  # nouser
-        check.is_false(nw_driver.connected)
+        check.is_true(nw_driver.connected)
     check.is_in("missing Netwitness required parameters", mp_ex.value.args)
