@@ -15,7 +15,7 @@ def test_netwitness_connect_no_params():
     with pytest.raises(MsticpyUserConfigError) as mp_ex:
         netwitness=NetwitnessDriver()
         netwitness.connect() ## No arguments supplied by user
-    check.is_in("no Netwitness connection parameters", mp_ex.value.args)
+    check.is_in("no Netwitness parameters", mp_ex.value.args)
 
 # def test_netwitness_connect_req_params():
 
