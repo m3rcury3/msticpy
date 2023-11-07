@@ -4,6 +4,7 @@
 # license information.
 # --------------------------------------------------------------------------
 
+from unittest.mock import MagicMock, patch
 import pytest
 import pytest_check as check
 from msticpy.data.drivers.netwitness_driver import NetwitnessDriver
@@ -24,13 +25,14 @@ def test_netwitness_connect_req_params():
         netwitness.connect(nwhost="1.1.1.1") ## Missing parameters provided
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
+@patch(NetwitnessDriver.connect)
 def test_netwitness_query_success():
     netwitness=NetwitnessDriver()
     with pytest.raises(MsticpyNotConnectedError) as mp_ex:
         netwitness.query("some query")
         check.is_false(netwitness.connected)
     check.is_in("not connected to Netwitness.", mp_ex.value.args)
-    netwitness.connect(nwhost="nwhostname",nwuser="adminuser",nwpassword="topsecret")
+    netwitness.connect = MagicMock(connected=True)
     check.is_true(netwitness.connected)
 
 
