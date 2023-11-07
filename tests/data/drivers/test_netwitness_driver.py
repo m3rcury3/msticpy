@@ -30,6 +30,8 @@ def test_netwitness_query_success():
         netwitness.query("some query")
         check.is_false(netwitness.connected)
     check.is_in("not connected to Netwitness.", mp_ex.value.args)
+    netwitness.connect(nwhost="nwhostname",nwuser="adminuser",nwpassword="topsecret")
+    check.is_true(netwitness.connected)
 
 
 #def test_netwitness_connect_no_params -- Done
