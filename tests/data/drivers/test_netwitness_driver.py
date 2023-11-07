@@ -22,7 +22,7 @@ def test_netwitness_connect_errors():
     with pytest.raises(MsticpyConnectionError) as mp_ex:
         netwitness=NetwitnessDriver()
         netwitness.connect(nwhost="nwhostname",nwuser="nwusername",nwpassword="nwpass")
-    check.is_in("requests.exceptions.ConnectionError", mp_ex.value.args)
+    check.is_in("Netwitness connection error", mp_ex.value.args)
 
 # def test_netwitness_connect_success():
 
