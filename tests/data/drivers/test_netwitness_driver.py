@@ -26,7 +26,7 @@ def test_netwitness_connect_req_params():
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
 @patch('msticpy.data.drivers.netwitness_driver.NetwitnessDriver')
-def test_netwitness_query_success():
+def test_netwitness_query_success(netwitness):
     netwitness=NetwitnessDriver()
     with pytest.raises(MsticpyNotConnectedError) as mp_ex:
         netwitness.query("some query")
