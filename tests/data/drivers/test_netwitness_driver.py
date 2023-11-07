@@ -32,7 +32,7 @@ def test_netwitness_query_success(mock_netwitness):
         mock_netwitness.query("some query")
         check.is_false(mock_netwitness.connected)
     check.is_in("not connected to Netwitness.", mp_ex.value.args)
-    mock_netwitness.connect.response = MagicMock(status_code="200")
+    mock_netwitness.response = MagicMock(status_code="200")
     check.is_true(mock_netwitness.connected)
 
 
