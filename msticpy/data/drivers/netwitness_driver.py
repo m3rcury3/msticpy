@@ -94,7 +94,10 @@ class NetwitnessDriver(DriverBase):
         print("self.nw_client.response.reason = " + str(self.nw_client.response.reason))
         print("Got Response: " + str(self.nw_client.response.content))
         if str(self.nw_client.response.status_code) != "200":
-            print("Connection failed.")
+            raise MsticpyConnectionError(
+                f"Error connecting to Netwitness",
+                title="Netwitness connection",
+                help_uri="https://msticpy.readthedocs.io/en/latest/DataProviders.html")
         else:
             self._connected = True
 
