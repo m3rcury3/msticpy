@@ -209,7 +209,7 @@ class NetwitnessAPI():
         self.url = url
         self.session.auth = (username,password)
         self.response = self.session.get(url=self.url,verify=False)
-        return self.response
+        return str(self.response.status_code) ## For the unit test
 
     def nwquery(self,nw_query_type,query_string,sessions=None, limit=None, flags=None,where=None, **kwargs):        
         if (nw_query_type=="meta"):
