@@ -7,7 +7,7 @@
 from unittest.mock import MagicMock, patch
 import pytest
 import pytest_check as check
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI, login
 from msticpy.common.exceptions import (
     MsticpyNotConnectedError,
     MsticpyUserConfigError,
@@ -25,10 +25,8 @@ def test_netwitness_connect_req_params():
         netwitness.connect(nwhost="1.1.1.1") ## Missing parameters provided
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-@patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI")
-def test_netwitness_connection_success(mock_netwitness_api):
-    mock_netwitness_api=MagicMock(NetwitnessAPI)
-    mock_netwitness_api.response="200"
+@patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI.login","200")
+def test_netwitness_connection_success(self):
     netwitness=NetwitnessDriver()
     netwitness.connect(nwhost="1.1.1.1",nwuser="username",nwpassword="pass")
     check.is_true(netwitness.connected)
