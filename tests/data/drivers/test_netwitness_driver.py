@@ -26,7 +26,7 @@ def test_netwitness_connect_req_params():
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
 @patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI.login","200")
-def test_netwitness_connection_success(self):
+def test_netwitness_connection_success():
     netwitness=NetwitnessDriver()
     netwitness.connect(nwhost="1.1.1.1",nwuser="username",nwpassword="pass")
     check.is_true(netwitness.connected)
