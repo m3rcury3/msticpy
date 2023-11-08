@@ -27,7 +27,8 @@ def test_netwitness_connect_req_params():
 
 @patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI")
 def test_netwitness_connection_success(mock_netwitness_api):
-    mock_netwitness_api.return_value=MagicMock(status_code="123")
+    mock_netwitness_api=MagicMock(NetwitnessAPI)
+    mock_netwitness_api.return_value="200"
     netwitness=NetwitnessDriver()
     netwitness.connect(nwhost="1.1.1.1",nwuser="username",nwpassword="pass")
     check.is_true(netwitness.connected)
