@@ -25,7 +25,7 @@ def test_netwitness_connect_req_params():
         netwitness.connect(nwhost="1.1.1.1") ## Missing parameters provided
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-@patch("msticpy.data.drivers.netwitness_driver")
+@patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI")
 def test_netwitness_connection_success(mock_netwitness_api):
     mock_netwitness_api.return_value=MagicMock(status_code="200")
     netwitness=NetwitnessDriver()

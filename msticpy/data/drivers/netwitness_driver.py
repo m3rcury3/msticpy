@@ -204,6 +204,7 @@ class NetwitnessAPI():
         self.session = requests.Session()
         self.session.headers = CaseInsensitiveDict()
         self.session.headers["Accept"] = "application/json"
+        self.response
 
     def login(self,url,username,password):
         self.url = url
