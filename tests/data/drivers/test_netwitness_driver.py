@@ -26,15 +26,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
 def cli_connect(**kwargs):
     cause = MagicMock()
-    cause.body = bytes("Test body stuff", encoding="utf-8")
-    cause.status_code = 200
-    cause.reason = "Page not found."
-    cause.headers = "One Two Three"
-    if kwargs.get("host") == "AuthError":
-        raise netwitness_api.AuthenticationError(cause=cause, message="test AuthHeader")
-    if kwargs.get("host") == "HTTPError":
-        cause.body = io.BytesIO(cause.body)
-        raise netwitness_api.HTTPError(response=cause, _message="test HTTPError")
+    cause.status_code="200"
     return _MockSplunkService()
 
 class _MockSplunkService(MagicMock):
