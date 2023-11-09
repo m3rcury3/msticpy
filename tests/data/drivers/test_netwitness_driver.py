@@ -13,6 +13,13 @@ from msticpy.common.exceptions import (
     MsticpyUserConfigError,
 )
 
+class NetwitnessAPIMock():
+    def __init__(self,**kwargs):
+        self._session_data = {}
+        self.session = requests.Session()
+        self.session.headers = CaseInsensitiveDict()
+        self.session.headers["Accept"] = "application/json"
+
 def test_netwitness_connect_no_params():
     netwitness=NetwitnessDriver()
     with pytest.raises(MsticpyUserConfigError) as mp_ex:
@@ -25,11 +32,13 @@ def test_netwitness_connect_req_params():
         netwitness.connect(nwhost="1.1.1.1") ## Missing parameters provided
     check.is_in("no Netwitness connection parameters", mp_ex.value.args)
 
-#@patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI")
+@patch("msticpy.data.drivers.netwitness_driver.NetwitnessAPI",mock_response)
 def test_netwitness_connection_success():
+    mock_response=NetwitnessAPIMock()
+    mock_response.response.status_code="200"
     netwitness=NetwitnessDriver()
     netwitness.connect(nwhost="1.1.1.1",nwuser="username",nwpassword="pass")
-    check.is_false(netwitness.connected)
+    check.is_true(netwitness.connected)
 
 
 #def test_netwitness_connect_no_params -- Done
