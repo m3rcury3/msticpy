@@ -63,7 +63,7 @@ def test_netwitness_connect_req_params(netwitness_api):
     netwitness_api.connect = cli_connect
     netwitness_driver = NetwitnessDriver()
     check.is_true(netwitness_driver.loaded)
-    netwitness_driver.connect(host="localhost", username="ian", password="123456")
+    netwitness_driver.connect(nwhost="localhost", nwuser="ian", nwpassword="123456")
     check.is_true(netwitness_driver.connected)
     nw_cntn_str = (
         f"host='localhost'; username='ian'; password='123456'"
