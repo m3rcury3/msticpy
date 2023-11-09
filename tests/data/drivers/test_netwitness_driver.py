@@ -61,12 +61,16 @@ def test_netwitness_connect_no_params(netwitness_api):
 def test_netwitness_connect_req_params(netwitness_api):
     """Check load/connect success with required params."""
     netwitness_api.connect = cli_connect
+
     netwitness_driver = NetwitnessDriver()
     check.is_true(netwitness_driver.loaded)
+
     netwitness_driver.connect(nwhost="localhost", nwuser="ian", nwpassword="123456")
-    #check.is_true(netwitness_driver.connected)
+    check.is_true(netwitness_driver.connected)
+
     nw_cntn_str = (
         f"host='localhost'; username='ian'; password='123456'"
     )
     netwitness_driver = NetwitnessDriver()
+    
     netwitness_driver.connect(connection_str=nw_cntn_str)
