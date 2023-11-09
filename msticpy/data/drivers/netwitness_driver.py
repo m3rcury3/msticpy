@@ -88,12 +88,12 @@ class NetwitnessDriver(DriverBase):
         }
         nwurl="http://" + arg_dict['nwhost'] + ":" + str(arg_dict['nwport'])
         print("Connecting to " + nwurl + " as " + arg_dict['nwuser'] + "...")
-        self.nw_client.login(url=nwurl, username=arg_dict['nwuser'], password=arg_dict['nwpassword'],result="")
+        self.nw_client.login(url=nwurl, username=arg_dict['nwuser'], password=arg_dict['nwpassword'])
         print("self.nw_client.response.status_code = " + str(self.nw_client.response.status_code))
         print("self.nw_client.response.headers = " + str(self.nw_client.response.headers))
         print("self.nw_client.response.reason = " + str(self.nw_client.response.reason))
         print("Got Response: " + str(self.nw_client.response.content))
-        if str(self.nw_client.result) != "200":
+        if str(self.nw_client.response.status_code) != "200":
             raise MsticpyConnectionError(
                 f"Connection error connecting to Netwitness",
                 title="Netwitness connection",
@@ -205,12 +205,10 @@ class NetwitnessAPI():
         self.session.headers = CaseInsensitiveDict()
         self.session.headers["Accept"] = "application/json"
 
-    def login(self,url,username,password,result):
+    def login(self,url,username,password):
         self.url = url
         self.session.auth = (username,password)
         self.response = self.session.get(url=self.url,verify=False)
-        result=str(self.response.status_code)
-        return result
 
     def nwquery(self,nw_query_type,query_string,sessions=None, limit=None, flags=None,where=None, **kwargs):        
         if (nw_query_type=="meta"):
