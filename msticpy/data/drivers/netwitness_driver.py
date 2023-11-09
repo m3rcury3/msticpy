@@ -20,8 +20,6 @@ from typing import Any, Dict, Iterable, Optional, Set, Tuple, Union
 from ..._version import VERSION
 from ...common.exceptions import (
     MsticpyConnectionError,
-    MsticpyDataQueryError,
-    MsticpyImportExtraError,
     MsticpyUserConfigError,
 )
 from ...common.utility import check_kwargs, export
