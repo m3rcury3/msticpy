@@ -61,7 +61,7 @@ def test_netwitness_connect_errors(netwitness_api):
     print("connected", netwitness_driver.connected)
     with pytest.raises(MsticpyConnectionError) as mp_ex:
         netwitness_driver.connect(
-            host="nwhost", username="nwusername", password="nwpassword"
+            nwhost="nwhost", nwuser="nwusername", nwpassword="nwpassword"
         )
         print("connected", sp_driver.connected)
         check.is_false(sp_driver.connected)
