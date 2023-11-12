@@ -63,6 +63,6 @@ def test_netwitness_connect_errors(netwitness_api):
         netwitness_driver.connect(
             nwhost="nwhost", nwuser="nwusername", nwpassword="nwpassword"
         )
-        print("connected", sp_driver.connected)
-        check.is_false(sp_driver.connected)
+        print("connected", netwitness_driver.connected)
+        check.is_false(netwitness_driver.connected)
     check.is_in("Netwitness connection", mp_ex.value.args)
