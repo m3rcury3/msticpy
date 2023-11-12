@@ -27,14 +27,15 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 def cli_connect(**kwargs):
     cause = MagicMock()
     cause.status_code="200"
-    return _MockSplunkService()
+    return _MockNetwitnessService()
 
-class _MockSplunkService(MagicMock):
+class _MockNetwitnessService(MagicMock):
     """Netwitness service mock."""
 
     def __init__(self):
         """Mock method."""
         super().__init__()
+
 
 @patch(NETWITNESS_CLI_PATCH)
 def test_netwitness_connect_no_params(netwitness_api):
