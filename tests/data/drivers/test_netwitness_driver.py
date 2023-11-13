@@ -66,3 +66,15 @@ def test_netwitness_connect_errors(netwitness_api):
         print("connected", netwitness_driver.connected)
         check.is_false(netwitness_driver.connected)
     check.is_in("Netwitness connection", mp_ex.value.args)
+
+@patch(NETWITNESS_CLI_PATCH)
+def test_netwitness_query_success(netwitness_api):
+    """Check loaded true."""
+    netwitness_api.connect = cli_connect
+    netwitness_driver = NetwitnessAPI()
+
+    # trying to get these before connecting should throw
+    with pytest.raises(MsticpyNotConnectedError) as mp_ex:
+        netwitness_driver.query("some query")
+        check.is_false(netwitness_driver.connected)
+    check.is_in("not connected to Netwitness", mp_ex.value.args)
