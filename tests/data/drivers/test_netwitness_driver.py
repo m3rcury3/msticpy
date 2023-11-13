@@ -16,7 +16,7 @@ from msticpy.common.exceptions import (
     MsticpyNotConnectedError,
     MsticpyUserConfigError,
 )
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI, login
 
 from ...unit_test_lib import get_test_data_path
 
