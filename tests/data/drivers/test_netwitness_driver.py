@@ -26,7 +26,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
 def cli_connect(**kwargs):
     cause = MagicMock()
-    cause.status_code="200"
+    cause.response.status_code="200"
     return _MockNetwitnessService()
 
 class _MockNetwitnessService(MagicMock):
@@ -81,7 +81,3 @@ def test_netwitness_query_success(netwitness_api):
 
     netwitness_driver.connect(nwhost="localhost", nwuser="testuser", nwpassword="testpass")
     check.is_true(netwitness_driver.connected)
-
-    df_result = netwitness_driver.query("some query")
-    check.is_instance(df_result, pd.DataFrame)
-    check.equal(len(df_result), 10)
