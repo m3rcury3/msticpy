@@ -16,7 +16,7 @@ from msticpy.common.exceptions import (
     MsticpyNotConnectedError,
     MsticpyUserConfigError,
 )
-from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI, login
+from msticpy.data.drivers.netwitness_driver import NetwitnessDriver, NetwitnessAPI
 
 from ...unit_test_lib import get_test_data_path
 
@@ -26,6 +26,7 @@ NETWITNESS_CLI_PATCH = NetwitnessDriver.__module__ + ".NetwitnessAPI"
 
 def cli_connect(**kwargs):
     cause = MagicMock()
+    cause.connected = True
     cause.response.status_code="200"
     return _MockNetwitnessService()
 
@@ -35,7 +36,6 @@ class _MockNetwitnessService(MagicMock):
     def __init__(self):
         """Mock method."""
         super().__init__()
-    
     @property
     def login(self):
          """Mock method."""
