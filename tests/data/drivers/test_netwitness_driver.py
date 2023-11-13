@@ -81,3 +81,7 @@ def test_netwitness_query_success(netwitness_api):
 
     netwitness_driver.connect(nwhost="localhost", nwuser="testuser", nwpassword="testpass")
     check.is_true(netwitness_driver.connected)
+
+    df_result = netwitness_driver.query("some query")
+    check.is_instance(df_result, pd.DataFrame)
+    check.equal(len(df_result), 10)
