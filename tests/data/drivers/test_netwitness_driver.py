@@ -36,7 +36,7 @@ class _MockNetwitnessService(MagicMock):
     def __init__(self):
         """Mock method."""
         super().__init__()
-    @property
+        
     def login(self):
          """Mock method."""
          self.response.status_code="200"
