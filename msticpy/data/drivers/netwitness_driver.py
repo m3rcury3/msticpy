@@ -203,7 +203,7 @@ class NetwitnessAPI():
         self.session.headers = CaseInsensitiveDict()
         self.session.headers["Accept"] = "application/json"
         self.response = requests.Response()
-
+    @property
     def login(self,url,username,password):
         self.url = url
         self.session.auth = (username,password)

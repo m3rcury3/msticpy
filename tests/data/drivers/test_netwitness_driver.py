@@ -35,8 +35,11 @@ class _MockNetwitnessService(MagicMock):
     def __init__(self):
         """Mock method."""
         super().__init__()
-        self.response.status_code="200"
-
+    
+    @property
+    def login(self):
+         """Mock method."""
+         return self.response.status_code="200"
 
 @patch(NETWITNESS_CLI_PATCH)
 def test_netwitness_connect_no_params(netwitness_api):
