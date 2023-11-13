@@ -76,5 +76,5 @@ def test_netwitness_query_success(netwitness_api):
     # trying to get these before connecting should throw
     with pytest.raises(MsticpyNotConnectedError) as mp_ex:
         netwitness_driver.query("some query")
-        check.is_false(netwitness_driver.connected)
+        check.is_true(netwitness_driver.connected)
     check.is_in("not connected to Netwitness", mp_ex.value.args)
