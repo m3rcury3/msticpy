@@ -70,7 +70,7 @@ def test_netwitness_connect_errors(netwitness_api):
 @patch(NETWITNESS_CLI_PATCH)
 def test_netwitness_query_success(netwitness_api):
     """Check loaded true."""
-    netwitness_api.connect = cli_connect
+    netwitness_api.login = cli_connect
     netwitness_driver = NetwitnessDriver()
 
     # trying to get these before connecting should throw
