@@ -78,3 +78,6 @@ def test_netwitness_query_success(netwitness_api):
         netwitness_driver.query("some query")
         check.is_false(netwitness_driver.connected)
     check.is_in("not connected to Netwitness.", mp_ex.value.args)
+
+    netwitness_driver.connect(host="localhost", username="testuser", password="testpass")
+    check.is_true(netwitness_driver.connected)
