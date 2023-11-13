@@ -35,6 +35,7 @@ class _MockNetwitnessService(MagicMock):
     def __init__(self):
         """Mock method."""
         super().__init__()
+        self.response.status_code="200"
 
 
 @patch(NETWITNESS_CLI_PATCH)
